@@ -21,7 +21,7 @@
     {
       "text": "New TAsk",
       "day": "new date",
-      "reminder": false,
+      "reminder": true,
       "id": 4
     },
     {

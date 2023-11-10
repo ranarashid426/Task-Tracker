@@ -20,9 +20,14 @@ useEffect(() => {
   getTasks()
 }, [])
 
-
-const fetchTasks = async ()=>{
+const fetchTasks = async (id)=>{
   const res = await fetch('http://localhost:5000/tasks')
+  const data = await res.json()
+  return data
+}
+
+const fetchTask = async (id)=>{
+  const res = await fetch(`http://localhost:5000/tasks/${id}`)
   const data = await res.json()
   return data
 }
@@ -45,10 +50,7 @@ const deleteTask = async (id)=>{
 
 // Add TAsk
 const addTask = async (task)=>{
-  // const id = Math.floor(Math.random()*1000)+1
-  // const newTask = {id,...task}
-  // // const res = await fetchTasks
-  // setTasks([newTask,...tasks])
+
   const res =await fetch('http://localhost:5000/tasks',{
     method:'POST',
     headers:{
@@ -62,11 +64,21 @@ const addTask = async (task)=>{
   setTasks([data,...tasks])
 }
 
-const toggleReminder = (id)=>{
-
-
- setTasks(tasks.map((task)=>task.id===id ?
-  {...task,reminder:!task.reminder}:task))
+const toggleReminder = async (id)=>{
+  const tasktoToggle  = await fetchTask(id)
+  const updatedTask = {...tasktoToggle,reminder:!tasktoToggle.reminder}
+  const res = await fetch(`http://localhost:5000/tasks/${id}`,
+  {
+    method:'PUT',
+    headers:{
+      'Content-type':'application/json',
+    },
+    body: JSON.stringify(updatedTask)
+  }  )
+  const data = await res.json()
+  // console.log(data)
+  setTasks(tasks.map((task)=>task.id===id ?
+  {...task,reminder:data.reminder}:task))
 }
 
 
