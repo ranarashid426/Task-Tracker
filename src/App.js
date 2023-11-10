@@ -1,8 +1,12 @@
 import AddTask from "./components/AddTask";
+import Footer from "./components/Footer";
+import About from "./components/About";
+
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import './index.css'
 import { useState,useEffect } from "react";
+import {BrowserRouter, Route,Routes} from 'react-router-dom'
 
 
 
@@ -84,14 +88,30 @@ const toggleReminder = async (id)=>{
 
 
   return (
-  
+  <BrowserRouter>
   <div className="container">
-    <Header showAdd = {()=>{setShowAdd(!showAdd)}}  showAddBtn = {showAdd}/>
-    {showAdd && <AddTask addTask={addTask}/>}
-    {tasks.length!==0 ? < Tasks  tasks={tasks} onDelete = {deleteTask} onToggle = {toggleReminder}/> :
-    
-    <p>No Task Available</p>}
+      <Header showAdd = {()=>{setShowAdd(!showAdd)}}  showAddBtn = {showAdd}/>
+    <Routes>
+      <Route path="/" 
+      element = {<>
+      {showAdd && <AddTask addTask={addTask}/>}
+      {tasks.length!==0 ? < Tasks  tasks={tasks} onDelete = {deleteTask} onToggle = {toggleReminder}/> :
+      
+      <p>No Task Available</p>} 
+      
+      </>
+    }
+    />
+
+      {/* 2nd route */}
+
+      <Route path={'/about'} element = {<About/>}/>
+    </Routes>
+    <Footer />
+ 
   </div>
+  </BrowserRouter>
+ 
 
   )
 }

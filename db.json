@@ -1,21 +1,9 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "text": "Take Coffe",
-      "date": "Monday, 9 November. 2023",
-      "reminder": true
-    },
-    {
-      "id": 2,
-      "text": "Take Shower",
-      "date": "Monday, 9 November. 2023",
-      "reminder": true
-    },
-    {
       "text": "DO NOTHING",
       "day": "Sunday , 12 NOV, 2023",
-      "reminder": false,
+      "reminder": true,
       "id": 3
     },
     {
