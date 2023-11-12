@@ -8,15 +8,15 @@ import './index.css'
 import { useState,useEffect } from "react";
 import {BrowserRouter, Route,Routes} from 'react-router-dom'
 
-
+const api = "http://localhost:5000/tasks"
 
 function App() {
 
   
 useEffect(() => {
   
-  const getTasks = async ()=>{
-    const tasks = await fetchTasks()
+  const  getTasks  = async ()=>{
+  const tasks = await fetchTasks()
     setTasks([...tasks])
   }
   
@@ -25,13 +25,13 @@ useEffect(() => {
 }, [])
 
 const fetchTasks = async (id)=>{
-  const res = await fetch('http://localhost:5000/tasks')
+  const res = await fetch(api)
   const data = await res.json()
   return data
 }
 
 const fetchTask = async (id)=>{
-  const res = await fetch(`http://localhost:5000/tasks/${id}`)
+  const res = await fetch(`${api}/${id}`)
   const data = await res.json()
   return data
 }
@@ -41,7 +41,7 @@ const fetchTask = async (id)=>{
 
 
 const deleteTask = async (id)=>{
-  await fetch(`http://localhost:5000/tasks/${id}`,
+  await fetch(`${api}/${id}`,
   {
     method:'DELETE'
   }
@@ -55,7 +55,7 @@ const deleteTask = async (id)=>{
 // Add TAsk
 const addTask = async (task)=>{
 
-  const res =await fetch('http://localhost:5000/tasks',{
+  const res =await fetch(api,{
     method:'POST',
     headers:{
       'Content-type':'application/json',
@@ -66,12 +66,13 @@ const addTask = async (task)=>{
   const data = await res.json()
   
   setTasks([data,...tasks])
+  
 }
 
 const toggleReminder = async (id)=>{
   const tasktoToggle  = await fetchTask(id)
   const updatedTask = {...tasktoToggle,reminder:!tasktoToggle.reminder}
-  const res = await fetch(`http://localhost:5000/tasks/${id}`,
+  const res = await fetch(`${api}/${id}`,
   {
     method:'PUT',
     headers:{

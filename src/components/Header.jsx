@@ -11,9 +11,9 @@ const Header = ({title,showAdd,showAddBtn}) => {
    
   return (
     <header className='header'> 
-    <h1>{title}</h1>
+    <h2>{title}</h2>
     { pathname ==='/' &&
-    <Button onClick = {showAdd} color = {showAddBtn ? 'red':'green'} text = {showAddBtn ? 'Close':'Add Task'}/>
+    <Button  onClick = {showAdd} color = {showAddBtn ? 'red':'green'} text = {showAddBtn ? 'Close':'Add Task'}/>
 }
     
     </header>
@@ -22,7 +22,7 @@ const Header = ({title,showAdd,showAddBtn}) => {
 
 
 Header.defaultProps = {
-    title: 'Task Tracker'
+    title: 'React Todo App'
 }
 
 Header.propTypes = {
